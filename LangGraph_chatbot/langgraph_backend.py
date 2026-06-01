@@ -32,9 +32,3 @@ graph.add_edge(START, 'chat_node')
 graph.add_edge('chat_node', END)
 
 chatbot = graph.compile(checkpointer=checkpointer)
-stream = chatbot.stream(
-    {'message':[HumanMessage(content='what is the recipe to make pasta')]},
-    config  = {'configurable': {'thread_id': 'thread-1'}},
-    stream_mode = 'messages'
-)
-print(type(stream))
