@@ -1,8 +1,8 @@
 # pip install -U langchain langchain-groq langchain-community faiss-cpu pypdf python-dotenv sentence-transformers
 import os
 from dotenv import load_dotenv
-from langchain_community.document_loaders import PyPDFLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import PyMuPDFLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
 from langchain_community.vectorstores import FAISS
@@ -15,8 +15,10 @@ load_dotenv()
 PDF_PATH = "islr.pdf"
 
 # 1) Load PDF
-loader = PyPDFLoader(PDF_PATH)
+loader = PyMuPDFLoader(PDF_PATH)
 docs = loader.load()
+docs = docs[:50]  # only first 50 pages for testing
+
 
 # 2) Chunk
 splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150)
